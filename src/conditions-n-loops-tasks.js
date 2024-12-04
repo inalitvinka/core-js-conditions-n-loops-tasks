@@ -298,8 +298,20 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let balanceIndex = -1;
+  for (let i = 0; i < arr.length; i += 1) {
+    let left = 0;
+    let right = 0;
+    for (let j = 0; j < arr.length; j += 1) {
+      if (j < i) left += arr[j];
+      if (j > i) right += arr[j];
+    }
+    if (left === right) {
+      balanceIndex = i;
+    }
+  }
+  return balanceIndex;
 }
 
 /**
@@ -360,8 +372,26 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const result = arr;
+  if (arr.length <= 1) return arr;
+  const pivot = arr[0];
+  let left = [];
+  let right = [];
+  for (let i = 1; i < arr.length; i += 1) {
+    if (arr[i] < pivot) {
+      left[left.length] = arr[i];
+    } else {
+      right[right.length] = arr[i];
+    }
+  }
+  left = sortByAsc(left);
+  right = sortByAsc(right);
+  const sorted = [...left, pivot, ...right];
+  for (let i = 0; i < result.length; i += 1) {
+    result[i] = sorted[i];
+  }
+  return result;
 }
 
 /**
